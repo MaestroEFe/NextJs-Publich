@@ -9,7 +9,7 @@ interface User {
   _id: string;
   name: string;
   email: string;
-  role: string;
+  group: string;
 }
 
 const ManageUsersPage = () => {
@@ -22,7 +22,7 @@ const ManageUsersPage = () => {
   useEffect(() => {
     if (status === 'unauthenticated') {
       router.push('/login');
-    } else if (status === 'authenticated' && session.user?.role !== 'admin') {
+    } else if (status === 'authenticated' && session.user?.group !== 'admin') {
       router.push('/dashboard');
     }
   }, [session, status, router]);
@@ -43,7 +43,7 @@ const ManageUsersPage = () => {
       }
     };
 
-    if (session?.user?.role === 'admin') {
+    if (session?.user?.group === 'admin') {
       fetchUsers();
     }
   }, [session]);
