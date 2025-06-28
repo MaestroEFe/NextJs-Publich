@@ -24,7 +24,7 @@ This project is a highly customizable Next.js authentication system that uses Ne
 - Admin users can add, edit, and delete other admin users.
 
 ## Structure
-/auth-app/
+/Authenticationsystem/
 │
 ├── /app/                            # Next.js App Router pages
 │   ├── /api/                        # API routes
@@ -91,6 +91,46 @@ This project is a highly customizable Next.js authentication system that uses Ne
 ├── next.config.js
 ├── tsconfig.json
 └── package.json
+|__ README.md
+|__ DevREADME.md
 
+
+## Installation
+
+```bash
+npm install
+```
+
+## Setup
+
+Create a `.env.local` file:
+
+```env
+MONGODB_URI=mongodb+srv://<user>:<password>@cluster.mongodb.net/yourdb
+JWT_SECRET=your_jwt_secret
+NEXTAUTH_SECRET=your_nextauth_secret
+NEXTAUTH_URL=http://localhost:3000
+```
+
+## Development
+
+```bash
+npm run dev
+```
+
+## Production
+
+```bash
+npm run build
+npm run start
+```
+
+## Available Scripts
+
+```bash
+npm run dev       # Run development server
+npm run build     # Build for production
+npm run lint      # Check for errors
+```
 
 

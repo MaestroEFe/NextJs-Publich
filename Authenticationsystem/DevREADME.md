@@ -141,5 +141,5 @@ npm run lint      # Check for errors
 ## 👤 Author & Maintainer
 
 **Your Name**  
-`@yourusername` on GitHub  
-[youremail@example.com](mailto:youremail@example.com)
+`@MaestroEFe` on GitHub  
+[victor.akeks@gmail.com](mailto:victor.akeks@gmail.com)
