@@ -1,103 +1,128 @@
-# Authentication System for any application
+# Next.js Authentication System
 
-This project is a highly customizable Next.js authentication system that uses NextAuth.js for authentication and MongoDB for user management. It provides a secure and user-friendly way to handle user authentication and authorization in your Next.js application.
-
-## Objectives
-
-- Implement user authentication and authorization using NextAuth.js and MongoDB.
-- Provide a secure and user-friendly way to handle user authentication and authorization in your Next.js application.
+This project is a comprehensive, highly customizable Next.js authentication system built with NextAuth.js and MongoDB. It provides a secure and robust foundation for handling user authentication, authorization, and management in any modern web application.
 
 ## Features
 
-- User registration and login.
-- User profile management.
-- Password reset and recovery.
-- Role-based access control.
-- Secure user authentication and authorization.
-- User session management.
-- General pages that are accessible to public users (no authentication required).
-- General pages that are accessible to authenticated users (authentication required).
-- User profile pages that are accessible to authenticated users (authentication required).
-- Admin pages that are accessible to admin users only.
-- Admin dashboard that is accessible to admin users only.
-- Admin users can add, edit, and delete other users.
-- Admin users can add, edit, and delete other admin users.
+- **User Authentication:** Secure user registration, login, and session management.
+- **Profile Management:** Authenticated users can view and update their profile information (name, email).
+- **Password Reset:** A complete, secure flow for users to reset their forgotten passwords via email (simulated via console logs).
+- **Role-Based Access Control (RBAC):**
+  - Distinct roles for `user` and `admin`.
+  - Protected routes and API endpoints for authenticated users and admins.
+  - Middleware to enforce access control across the application.
+- **Admin Dashboard:**
+  - A central hub for administrators.
+  - Admins can view, update, and delete all users.
+  - Admins can view, update, and delete other admins.
+- **Responsive UI:** Built with Tailwind CSS for a clean and responsive user interface.
+- **Schema Validation:** Uses `zod` for robust and consistent form validation on both the client and server.
 
-## Structure
-/Authenticationsystem/
+## Project Structure
+
+```
+/AuthenticationSystem/
 │
-├── /app/                            # Next.js App Router pages
+├── /app/                            # Next.js App Router
+│   ├── /(auth)/                     # Layout group for auth pages
+│   │   ├── /login/
+│   │   ├── /register/
+│   │   ├── /reset-password/
+│   │   └── layout.tsx
+│   │
 │   ├── /api/                        # API routes
-│   │   ├── /auth/                  # login, register, logout, reset
-│   │   ├── /user/                  # get/update user info
-│   │   └── /admin/                 # admin-only actions (CRUD users)
+│   │   ├── /auth/                  # Handles login, register, password reset
+│   │   ├── /user/                  # Get/update current user info
+│   │   └── /admin/                 # Admin-only actions (CRUD users & admins)
 │   │
-│   ├── /dashboard/                 # Admin dashboard (admin only)
+│   ├── /dashboard/                 # Protected user dashboard
 │   │   └── page.tsx
 │   │
-│   ├── /profile/                   # Authenticated user profile
+│   ├── /profile/                   # Protected user profile page
 │   │   └── page.tsx
 │   │
-│   ├── /login/                     # Public login page
-│   │   └── page.tsx
-│   │
-│   ├── /register/                  # Public registration page
-│   │   └── page.tsx
-│   │
-│   ├── /reset-password/           # Password recovery flow
-│   │   └── page.tsx
-│   │
-│   ├── /admin/manage-users/       # Admin-only user management
-│   │   └── page.tsx
-│   │
-│   ├── /admin/manage-admins/      # Admin-only admin management
-│   │   └── page.tsx
+│   ├── /admin/                     # Admin-only pages
+│   │   ├── /dashboard/
+│   │   ├── /manage-admins/
+│   │   └── /manage-users/
 │   │
 │   ├── /page.tsx                  # Public home page
-│   └── layout.tsx                 # App layout
+│   └── layout.tsx                 # Root app layout
 │
 ├── /components/                   # Reusable UI components
-│   ├── AuthForm.tsx
-│   ├── UserCard.tsx
-│   ├── Sidebar.tsx
-│   └── Navbar.tsx
+│   ├── AuthForm.tsx               # Reusable form for login/register
+│   ├── Navbar.tsx                 # Site-wide navigation bar
+│   └── UserCard.tsx               # Card for displaying user info (admin)
 │
-├── /lib/                          # Utility functions & middleware
-│   ├── auth.ts                    # Auth/session utilities (getSession, protectRoute)
-│   ├── role.ts                    # RBAC helpers
-│   └── connectDB.ts               # MongoDB connection logic
+├── /contexts/                     # React contexts
+│   └── AuthProvider.tsx           # Wraps NextAuth SessionProvider
 │
-├── /middleware.ts                # Middleware (auth guards, role checks)
+├── /lib/                          # Utility functions
+│   ├── auth.ts                    # NextAuth.js configuration
+│   ├── connectDB.ts               # MongoDB connection logic
+│   └── role.ts                    # RBAC helper (isAdmin)
 │
-├── /models/                      # Mongoose models
-│   ├── User.ts
-│   └── Role.ts
+├── /models/                       # Mongoose models
+│   ├── PasswordResetToken.ts
+│   └── User.ts
 │
-├── /schemas/                     # Form validation (zod/yup)
+├── /schemas/                      # Zod validation schemas
 │   └── userSchema.ts
 │
-├── /contexts/                    # AuthContext if needed (optional for session)
-│   └── AuthProvider.tsx
+├── /middleware.ts                 # Route protection middleware
 │
-├── /types/                       # TypeScript definitions
-│   ├── user.d.ts
-│   └── session.d.ts
-│
-├── /styles/                      # Global and module styles
-│   └── globals.css
-│
-├── .env.local                    # Environment variables (DB URI, JWT secret, etc.)
-├── tailwind.config.js
+├── .env.local.example             # Example environment variables
 ├── next.config.js
-├── tsconfig.json
-└── package.json
-|__ README.md
-|__ DevREADME.md
+├── package.json
+└── README.md
+```
 
+## Getting Started
 
-## Installation
+### Prerequisites
 
-```bash
+- [Node.js](https://nodejs.org/en/) (v18.x or later)
+- [MongoDB](https://www.mongodb.com/try/download/community) instance (local or cloud-hosted)
+
+### Installation
+
+1.  **Clone the repository:**
+    ```bash
+    git clone <repository-url>
+    cd AuthenticationSystem
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+3.  **Set up environment variables:**
+    Create a `.env.local` file in the root of the project by copying the example file:
+    ```bash
+    cp .env.local.example .env.local
+    ```
+    Update the `.env.local` file with your specific credentials:
+    ```
+    MONGODB_URI="your_mongodb_connection_string"
+    NEXTAUTH_URL="http://localhost:3000"
+    NEXTAUTH_SECRET="your_super_secret_string_for_nextauth"
+    ```
+    -   `NEXTAUTH_SECRET`: A random string used to hash tokens. You can generate one with `openssl rand -base64 32`.
+
+4.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Usage
+
+-   **Register a new user:** Navigate to `/register`.
+-   **Create an admin user:** After registering, you can manually change a user's role to `admin` in your MongoDB database to access the admin features.
+-   **Admin Dashboard:** Log in as an admin and navigate to `/admin/dashboard` to manage users and other admins.
+-   **Password Reset:** Go to `/reset-password` to request a reset link. The link will be printed in the console where the development server is running.
 npm install
 ```
 
