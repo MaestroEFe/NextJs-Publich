@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import connectDB from '@/lib/connectDB';
 import User from '@/models/User';
+import { sendEmail } from '@/lib/email';
+import crypto from 'crypto';
 
 export async function POST(req: Request) {
   await connectDB();
@@ -24,10 +26,38 @@ export async function POST(req: Request) {
     }
 
     const newUser = new User({ name, email, password });
+
+    // Generate verification token
+    const verificationToken = crypto.randomBytes(32).toString('hex');
+    newUser.verificationToken = crypto
+      .createHash('sha256')
+      .update(verificationToken)
+      .digest('hex');
+    newUser.verificationTokenExpires = new Date(Date.now() + 3600000); // 1 hour from now
+
     await newUser.save();
 
+    // Send verification email
+    const verificationUrl = `${process.env.NEXTAUTH_URL}/auth/verify-email?token=${verificationToken}`;
+
+    const emailHtml = `
+      <h1>Welcome to the App!</h1>
+      <p>Thanks for signing up. Please verify your email by clicking the link below:</p>
+      <a href="${verificationUrl}">Verify Email</a>
+      <p>This link will expire in 1 hour.</p>
+    `;
+
+    await sendEmail({
+      to: newUser.email,
+      subject: 'Verify Your Email Address',
+      html: emailHtml,
+    });
+
     return NextResponse.json(
-      { message: 'User registered successfully.' },
+      {
+        message:
+          'Registration successful! Please check your email to verify your account.',
+      },
       { status: 201 }
     );
   } catch (error) {

@@ -6,6 +6,11 @@ export interface IUser extends Document {
   email: string;
   password?: string;
   group: string;
+  isVerified: boolean;
+  verificationToken?: string;
+  verificationTokenExpires?: Date;
+  passwordResetToken?: string;
+  passwordResetTokenExpires?: Date;
   createdAt: Date;
   updatedAt: Date;
   comparePassword(password: string): Promise<boolean>;
@@ -35,6 +40,26 @@ const UserSchema: Schema<IUser> = new Schema(
     group: {
       type: String,
       default: 'user',
+    },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
+    verificationToken: {
+      type: String,
+      select: false,
+    },
+    verificationTokenExpires: {
+      type: Date,
+      select: false,
+    },
+    passwordResetToken: {
+      type: String,
+      select: false,
+    },
+    passwordResetTokenExpires: {
+      type: Date,
+      select: false,
     },
   },
   { timestamps: true }
