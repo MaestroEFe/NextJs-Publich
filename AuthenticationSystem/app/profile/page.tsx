@@ -89,7 +89,7 @@ const ProfilePage = () => {
               )}
             </div>
             <p>
-              <strong>Role:</strong> {session.user?.role}
+              <strong>Role:</strong> {session.user?.group}
             </p>
             {apiError && <p className="text-red-500">{apiError}</p>}
             {success && <p className="text-green-500">{success}</p>}

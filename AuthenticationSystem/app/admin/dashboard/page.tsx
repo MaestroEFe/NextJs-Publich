@@ -6,7 +6,7 @@ import Link from 'next/link';
 export default function AdminDashboardPage() {
   const { data: session } = useSession();
 
-  if (session?.user?.role !== 'admin') {
+  if (session?.user?.group !== 'admin') {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <p>Access Denied. You are not an admin.</p>
