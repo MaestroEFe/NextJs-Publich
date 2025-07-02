@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
-import connectDB from '@/lib/connectDB';
-import User from '@/models/User';
-import { sendEmail } from '@/lib/email';
+import { connectDB, sendEmail } from '@/lib/auth';
+import { User } from '@repo/auth';
 import crypto from 'crypto';
 
 export async function POST(req: Request) {

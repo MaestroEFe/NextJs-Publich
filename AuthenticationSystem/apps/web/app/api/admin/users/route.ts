@@ -1,5 +1,6 @@
 import { getServerSession } from "next-auth/next";
-import { authOptions, connectDB, User } from '@/lib/auth';
+import { authOptions, connectDB } from '@/lib/auth';
+import { User, isAdmin } from '@repo/auth';
 import { NextResponse } from "next/server";
 
 export async function GET() {

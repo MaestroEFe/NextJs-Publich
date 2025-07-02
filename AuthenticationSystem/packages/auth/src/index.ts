@@ -2,6 +2,6 @@ export * from './lib/connectDB';
 export * from './lib/email';
 export * from './lib/auth';
 export * from './lib/access-control';
-export * from './models/User';
-export * from './models/Token';
-export * from './schemas/userSchema';
+export { default as User, type IUser } from './models/User';
+export * from './models/PasswordResetToken';
+
