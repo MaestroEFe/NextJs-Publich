@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { userUpdateSchema } from "@/schemas/userSchema";
+import { userUpdateSchema } from "@repo/auth";
 import { z } from "zod";
 
 const ProfilePage = () => {

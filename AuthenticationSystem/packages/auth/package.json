@@ -3,10 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "exports": {
-    "./connectDB": "./src/lib/connectDB.ts",
-    "./email": "./src/lib/email.ts",
-    "./user": "./src/models/User.ts",
-    "./schema": "./src/schemas/userSchema.ts"
+    ".": "./src/index.ts"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0"
@@ -15,7 +12,8 @@
     "mongoose": "^8.0.0",
     "resend": "^4.6.0",
     "bcryptjs": "^2.4.3",
-    "zod": "^3.25.67"
+    "zod": "^3.25.67",
+    "next-auth": "^4.24.5"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",

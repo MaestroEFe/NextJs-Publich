@@ -1,0 +1,25 @@
+2025-07-02T10:27:05.511476Z  WARN turborepo_lib::package_changes_watcher: file event lagged
+2025-07-02T10:27:05.511503Z  WARN turborepo_lib::package_changes_watcher: file event lagged
+2025-07-02T10:27:05.513918Z  WARN turborepo_lib::package_changes_watcher: file event lagged
+2025-07-02T10:27:05.517395Z  WARN turborepo_lib::package_changes_watcher: file event lagged
+2025-07-02T10:27:05.520266Z  WARN turborepo_lib::package_changes_watcher: file event lagged
+2025-07-02T10:27:05.520273Z  WARN turborepo_lib::package_changes_watcher: file event lagged
+2025-07-02T10:27:05.520283Z  WARN turborepo_lib::package_changes_watcher: file event lagged
+2025-07-02T10:27:05.522769Z  WARN turborepo_lib::package_changes_watcher: file event lagged
+2025-07-02T10:27:05.522776Z  WARN turborepo_lib::package_changes_watcher: file event lagged
+2025-07-02T10:27:05.522779Z  WARN turborepo_lib::package_changes_watcher: file event lagged
+2025-07-02T10:27:05.522782Z  WARN turborepo_lib::package_changes_watcher: file event lagged
+2025-07-02T10:27:05.522785Z  WARN turborepo_lib::package_changes_watcher: file event lagged
+2025-07-02T10:27:05.522788Z  WARN turborepo_lib::package_changes_watcher: file event lagged
+2025-07-02T10:27:05.523039Z  WARN turborepo_filewatch::package_watcher: lagged behind 15 processing file watching events
+2025-07-02T10:27:05.525186Z  WARN turborepo_lib::package_changes_watcher: file event lagged
+2025-07-02T10:27:05.525192Z  WARN turborepo_lib::package_changes_watcher: file event lagged
+2025-07-02T10:27:05.527556Z  WARN turborepo_lib::package_changes_watcher: file event lagged
+2025-07-02T10:27:05.527562Z  WARN turborepo_lib::package_changes_watcher: file event lagged
+2025-07-02T10:27:05.529762Z  WARN turborepo_lib::package_changes_watcher: file event lagged
+2025-07-02T10:27:05.529818Z  WARN turborepo_lib::package_changes_watcher: file event lagged
+2025-07-02T10:27:05.529831Z  WARN turborepo_lib::package_changes_watcher: file event lagged
+2025-07-02T10:27:05.531931Z  WARN turborepo_lib::package_changes_watcher: file event lagged
+2025-07-02T10:27:05.531936Z  WARN turborepo_lib::package_changes_watcher: file event lagged
+2025-07-02T10:27:05.534377Z  WARN turborepo_lib::package_changes_watcher: file event lagged
+2025-07-02T10:27:05.543278Z  WARN turborepo_filewatch::package_watcher: lagged behind 1592 processing file watching events

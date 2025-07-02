@@ -4,7 +4,7 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { loginSchema } from "@/schemas/userSchema";
+import { loginSchema } from "@repo/auth";
 import AuthForm from "@/components/AuthForm";
 
 const LoginPage = () => {

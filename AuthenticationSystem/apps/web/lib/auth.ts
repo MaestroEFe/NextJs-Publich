@@ -1,67 +1,27 @@
-import { NextAuthOptions } from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import connectDB from './connectDB';
-import User from '@/models/User';
+import { createAuthOptions, createEmailSender, connectDB as connectAuthDB } from '@repo/auth';
 
-export const authOptions: NextAuthOptions = {
-  providers: [
-    CredentialsProvider({
-      name: 'Credentials',
-      credentials: {
-        email: { label: 'Email', type: 'email' },
-        password: { label: 'Password', type: 'password' },
-      },
-      async authorize(credentials) {
-        await connectDB();
+const MONGODB_URI = process.env.MONGODB_URI;
+const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET;
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
+const EMAIL_FROM = process.env.EMAIL_FROM || 'onboarding@resend.dev';
 
-        if (!credentials?.email || !credentials?.password) {
-          return null;
-        }
+if (!MONGODB_URI) {
+  throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
+}
 
-        const user = await User.findOne({ email: credentials.email }).select(
-          '+password'
-        );
+if (!NEXTAUTH_SECRET) {
+  throw new Error('Please define the NEXTAUTH_SECRET environment variable inside .env.local');
+}
 
-        if (!user) {
-          return null;
-        }
+if (!RESEND_API_KEY) {
+  throw new Error('Please define the RESEND_API_KEY environment variable inside .env.local');
+}
 
-        const isPasswordMatch = await user.comparePassword(credentials.password);
+// Export configured auth options
+export const authOptions = createAuthOptions(MONGODB_URI, NEXTAUTH_SECRET);
 
-        if (!isPasswordMatch) {
-          return null;
-        }
+// Export configured email sender
+export const { sendEmail } = createEmailSender(RESEND_API_KEY, EMAIL_FROM);
 
-        return {
-          id: user._id.toString(),
-          name: user.name,
-          email: user.email,
-          group: user.group,
-        };
-      },
-    }),
-  ],
-  session: {
-    strategy: 'jwt',
-  },
-  callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        token.id = user.id;
-        token.group = user.group;
-      }
-      return token;
-    },
-    async session({ session, token }) {
-      if (session.user) {
-        session.user.id = token.id as string;
-        session.user.group = token.group as string;
-      }
-      return session;
-    },
-  },
-  pages: {
-    signIn: '/login',
-  },
-  secret: process.env.NEXTAUTH_SECRET,
-};
+// Export configured database connector
+export const connectDB = () => connectAuthDB(MONGODB_URI);
