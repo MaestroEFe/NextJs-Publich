@@ -1,0 +1,26 @@
+{
+  "name": "@repo/auth",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    "./connectDB": "./src/lib/connectDB.ts",
+    "./email": "./src/lib/email.ts",
+    "./user": "./src/models/User.ts",
+    "./schema": "./src/schemas/userSchema.ts"
+  },
+  "scripts": {
+    "lint": "eslint . --max-warnings 0"
+  },
+  "dependencies": {
+    "mongoose": "^8.0.0",
+    "resend": "^4.6.0",
+    "bcryptjs": "^2.4.3",
+    "zod": "^3.25.67"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/bcryptjs": "^2.4.6",
+    "typescript": "^5"
+  }
+}
