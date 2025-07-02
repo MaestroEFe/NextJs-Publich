@@ -3,14 +3,21 @@
 import { useState } from 'react';
 import { ICategory } from '@repo/cms';
 
+// The populated parent field will be an object, not just an ID
+interface PopulatedCategory extends Omit<ICategory, 'parent'> {
+  parent?: { _id: string; name: string };
+}
+
 interface CategoryClientProps {
-  initialCategories: ICategory[];
+  initialCategories: PopulatedCategory[];
 }
 
 export default function CategoryClient({ initialCategories }: CategoryClientProps) {
-  const [categories, setCategories] = useState<ICategory[]>(initialCategories);
+  const [categories, setCategories] = useState<PopulatedCategory[]>(initialCategories);
   const [newCategoryName, setNewCategoryName] = useState('');
   const [newCategoryDescription, setNewCategoryDescription] = useState('');
+  const [parentId, setParentId] = useState('');
+  const [postType, setPostType] = useState<'blog' | 'product' | 'service' | 'page'>('blog');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -23,7 +30,12 @@ export default function CategoryClient({ initialCategories }: CategoryClientProp
       const response = await fetch('/api/cms/categories', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: newCategoryName, description: newCategoryDescription }),
+        body: JSON.stringify({
+          name: newCategoryName,
+          description: newCategoryDescription,
+          parentId: parentId || null,
+          postType,
+        }),
       });
 
       if (!response.ok) {
@@ -32,9 +44,15 @@ export default function CategoryClient({ initialCategories }: CategoryClientProp
       }
 
       const newCategory = await response.json();
-      setCategories([...categories, newCategory]);
+      // After creating, we should re-fetch or manually construct the populated object.
+      // For simplicity, we'll just add it. A real app should re-fetch for consistency.
+      const displayCategory = { ...newCategory, parent: categories.find(c => c._id === newCategory.parent) };
+      setCategories([...categories, displayCategory]);
       setNewCategoryName('');
       setNewCategoryDescription('');
+      setParentId('');
+      // Reset postType to default if needed, or keep it for next entry
+      // setPostType('blog');
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -70,6 +88,34 @@ export default function CategoryClient({ initialCategories }: CategoryClientProp
               className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
             />
           </div>
+          <div className="mb-4">
+            <label htmlFor="parent" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Parent Category (Optional)</label>
+            <select
+              id="parent"
+              value={parentId}
+              onChange={(e) => setParentId(e.target.value)}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+            >
+              <option value="">None</option>
+              {categories.map((cat) => (
+                <option key={cat._id} value={cat._id}>{cat.name}</option>
+              ))}
+            </select>
+          </div>
+          <div className="mb-4">
+            <label htmlFor="postType" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Post Type</label>
+            <select
+              id="postType"
+              value={postType}
+              onChange={(e) => setPostType(e.target.value as any)}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+            >
+              <option value="blog">Blog</option>
+              <option value="product">Product</option>
+              <option value="service">Service</option>
+              <option value="page">Page</option>
+            </select>
+          </div>
           {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
           <button 
             type="submit"
@@ -89,6 +135,8 @@ export default function CategoryClient({ initialCategories }: CategoryClientProp
               <tr>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Name</th>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Slug</th>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Post Type</th>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Parent</th>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Description</th>
               </tr>
             </thead>
@@ -97,6 +145,8 @@ export default function CategoryClient({ initialCategories }: CategoryClientProp
                 <tr key={cat._id}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{cat.name}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{cat.slug}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{cat.postType}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{cat.parent?.name || '—'}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{cat.description}</td>
                 </tr>
               ))}

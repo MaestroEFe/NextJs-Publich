@@ -1,8 +1,12 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
   "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
+  "/page": "app/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/profile/page": "app/profile/page.js",
+  "/api/crm/contacts/route": "app/api/crm/contacts/route.js",
+  "/admin/dashboard/page": "app/admin/dashboard/page.js",
   "/admin/page": "app/admin/page.js",
-  "/admin/cms/categories/page": "app/admin/cms/categories/page.js",
   "/admin/cms/posts/page": "app/admin/cms/posts/page.js",
   "/admin/cms/tags/page": "app/admin/cms/tags/page.js"
 }

@@ -4,25 +4,24 @@ export interface ICategory extends Document {
   name: string;
   slug: string;
   description?: string;
+  parent?: ICategory['_id'];
+  postType: 'blog' | 'product' | 'service' | 'page';
 }
 
 const CategorySchema: Schema<ICategory> = new Schema(
   {
-    name: {
-      type: String,
-      required: true,
-      trim: true,
-      unique: true,
+    name: { type: String, required: true, unique: true },
+    slug: { type: String, unique: true, index: true },
+    description: { type: String },
+    parent: {
+      type: Schema.Types.ObjectId,
+      ref: 'Category',
+      default: null,
     },
-    slug: {
+    postType: {
       type: String,
+      enum: ['blog', 'product', 'service', 'page'],
       required: true,
-      trim: true,
-      unique: true,
-    },
-    description: {
-      type: String,
-      trim: true,
     },
   },
   { timestamps: true }

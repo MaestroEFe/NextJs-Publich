@@ -1,23 +1,23 @@
 import mongoose, { Document, Schema, Model } from 'mongoose';
 
+/**
+ * @interface ITag
+ * @description Interface for the Tag model.
+ */
 export interface ITag extends Document {
   name: string;
   slug: string;
+  postType: 'blog' | 'product' | 'service' | 'page';
 }
 
 const TagSchema: Schema<ITag> = new Schema(
   {
-    name: {
+    name: { type: String, required: true, unique: true, trim: true },
+    slug: { type: String, unique: true, index: true, trim: true },
+    postType: {
       type: String,
+      enum: ['blog', 'product', 'service', 'page'],
       required: true,
-      trim: true,
-      unique: true,
-    },
-    slug: {
-      type: String,
-      required: true,
-      trim: true,
-      unique: true,
     },
   },
   { timestamps: true }
@@ -32,3 +32,4 @@ TagSchema.pre<ITag>('save', function (next) {
 });
 
 export const Tag: Model<ITag> = mongoose.models.Tag || mongoose.model<ITag>('Tag', TagSchema);
+
