@@ -23,6 +23,9 @@ importers:
       '@repo/auth':
         specifier: workspace:*
         version: link:../../packages/auth
+      '@repo/cms':
+        specifier: workspace:*
+        version: link:../../packages/cms
       '@repo/crm':
         specifier: workspace:*
         version: link:../../packages/crm
@@ -117,6 +120,31 @@ importers:
         version: 2.4.6
       typescript:
         specifier: ^5
+        version: 5.3.3
+
+  packages/cms:
+    dependencies:
+      '@repo/auth':
+        specifier: workspace:*
+        version: link:../auth
+      mongoose:
+        specifier: ^8.0.0
+        version: 8.0.0
+    devDependencies:
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@types/mongoose':
+        specifier: ^5.11.97
+        version: 5.11.97
+      eslint:
+        specifier: ^8.57.0
+        version: 8.57.1
+      typescript:
+        specifier: ^5.3.3
         version: 5.3.3
 
   packages/crm:

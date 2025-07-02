@@ -20,7 +20,8 @@
     "resend": "^4.6.0",
     "zod": "^3.25.67",
     "@repo/auth": "workspace:*",
-    "@repo/crm": "workspace:*"
+    "@repo/crm": "workspace:*",
+    "@repo/cms": "workspace:*"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",

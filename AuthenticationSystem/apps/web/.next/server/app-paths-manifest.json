@@ -1,13 +1,8 @@
 {
-  "/dashboard/page": "app/dashboard/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
   "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
-  "/page": "app/page.js",
-  "/profile/page": "app/profile/page.js",
-  "/api/crm/contacts/route": "app/api/crm/contacts/route.js",
-  "/admin/dashboard/page": "app/admin/dashboard/page.js",
-  "/admin/manage-users/page": "app/admin/manage-users/page.js",
-  "/api/admin/users/route": "app/api/admin/users/route.js",
-  "/admin/manage-admins/page": "app/admin/manage-admins/page.js",
-  "/api/admin/admins/route": "app/api/admin/admins/route.js",
-  "/(auth)/login/page": "app/(auth)/login/page.js"
+  "/admin/page": "app/admin/page.js",
+  "/admin/cms/categories/page": "app/admin/cms/categories/page.js",
+  "/admin/cms/posts/page": "app/admin/cms/posts/page.js",
+  "/admin/cms/tags/page": "app/admin/cms/tags/page.js"
 }
