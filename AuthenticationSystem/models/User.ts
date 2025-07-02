@@ -5,7 +5,12 @@ export interface IUser extends Document {
   name: string;
   email: string;
   password?: string;
-  role: 'user' | 'admin';
+  group: string;
+  isVerified: boolean;
+  verificationToken?: string;
+  verificationTokenExpires?: Date;
+  passwordResetToken?: string;
+  passwordResetTokenExpires?: Date;
   createdAt: Date;
   updatedAt: Date;
   comparePassword(password: string): Promise<boolean>;
@@ -32,10 +37,29 @@ const UserSchema: Schema<IUser> = new Schema(
       minlength: 6,
       select: false, // Do not return password by default
     },
-    role: {
+    group: {
       type: String,
-      enum: ['user', 'admin'],
       default: 'user',
+    },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
+    verificationToken: {
+      type: String,
+      select: false,
+    },
+    verificationTokenExpires: {
+      type: Date,
+      select: false,
+    },
+    passwordResetToken: {
+      type: String,
+      select: false,
+    },
+    passwordResetTokenExpires: {
+      type: Date,
+      select: false,
     },
   },
   { timestamps: true }

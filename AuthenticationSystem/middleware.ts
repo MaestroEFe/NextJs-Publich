@@ -16,7 +16,7 @@ export async function middleware(req: NextRequest) {
       return NextResponse.redirect(new URL('/dashboard', req.url));
     }
     // If they try to access an admin route without the admin role, redirect
-    if (pathname.startsWith('/admin') && token.role !== 'admin') {
+    if (pathname.startsWith('/admin') && token.group !== 'admin') {
       return NextResponse.redirect(new URL('/dashboard', req.url)); // Or a '/unauthorized' page
     }
   }

@@ -3,7 +3,7 @@ import { authOptions } from "@/lib/auth";
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/connectDB";
 import User from "@/models/User";
-import { isAdmin } from "@/lib/role";
+import { isAdmin } from "@/lib/access-control";
 
 export async function GET(req: Request, { params }: { params: { id: string } }) {
     const session = await getServerSession(authOptions);
@@ -33,10 +33,10 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
 
     try {
         const body = await req.json();
-        const { name, email, role } = body;
+        const { name, email, group } = body;
 
         await connectDB();
-        const user = await User.findByIdAndUpdate(params.id, { name, email, role }, { new: true });
+        const user = await User.findByIdAndUpdate(params.id, { name, email, group }, { new: true });
 
         if (!user) {
             return NextResponse.json({ message: "User not found" }, { status: 404 });
