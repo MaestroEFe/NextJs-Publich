@@ -19,7 +19,8 @@
     "react-hook-form": "^7.59.0",
     "resend": "^4.6.0",
     "zod": "^3.25.67",
-    "@repo/auth": "workspace:*"
+    "@repo/auth": "workspace:*",
+    "@repo/crm": "workspace:*"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",

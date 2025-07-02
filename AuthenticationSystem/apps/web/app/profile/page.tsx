@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { userUpdateSchema } from "@repo/auth/schemas";
 import { z } from "zod";
+import CrmForm from "./CrmForm";
 
 const ProfilePage = () => {
   const { data: session, update } = useSession();
@@ -60,47 +61,50 @@ const ProfilePage = () => {
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Profile</h1>
       {session ? (
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label htmlFor="name">Name</label>
-              <input
-                type="text"
-                id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              {errors?.flatten().fieldErrors.name && (
-                <p className="text-red-500 text-sm">{errors.flatten().fieldErrors.name}</p>
-              )}
-            </div>
-            <div>
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              {errors?.flatten().fieldErrors.email && (
-                <p className="text-red-500 text-sm">{errors.flatten().fieldErrors.email}</p>
-              )}
-            </div>
-            <p>
-              <strong>Role:</strong> {session.user?.group}
-            </p>
-            {apiError && <p className="text-red-500">{apiError}</p>}
-            {success && <p className="text-green-500">{success}</p>}
-            <button
-              type="submit"
-              className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
-            >
-              Update Profile
-            </button>
-          </form>
-        </div>
+        <>
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label htmlFor="name">Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full p-2 border border-gray-300 rounded"
+                />
+                {errors?.flatten().fieldErrors.name && (
+                  <p className="text-red-500 text-sm">{errors.flatten().fieldErrors.name}</p>
+                )}
+              </div>
+              <div>
+                <label htmlFor="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full p-2 border border-gray-300 rounded"
+                />
+                {errors?.flatten().fieldErrors.email && (
+                  <p className="text-red-500 text-sm">{errors.flatten().fieldErrors.email}</p>
+                )}
+              </div>
+              <p>
+                <strong>Role:</strong> {session.user?.group}
+              </p>
+              {apiError && <p className="text-red-500">{apiError}</p>}
+              {success && <p className="text-green-500">{success}</p>}
+              <button
+                type="submit"
+                className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+              >
+                Update Profile
+              </button>
+            </form>
+          </div>
+          <CrmForm />
+        </>
       ) : (
         <p>Loading session...</p>
       )}
