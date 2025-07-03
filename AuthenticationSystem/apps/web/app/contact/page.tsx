@@ -35,11 +35,21 @@ export default function Contact() {
     setSubmitMessage('');
 
     try {
-      // This is a mock API call. Replace with your actual API endpoint.
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      console.log('Form data submitted:', data);
-      setSubmitMessage('Thank you! Your message has been sent successfully.');
-      reset();
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        setSubmitMessage('Thank you! Your message has been sent successfully.');
+        reset();
+      } else {
+        const errorData = await response.json();
+        setSubmitMessage(errorData.message || 'Sorry, there was an error sending your message. Please try again.');
+      }
     } catch (error) {
       setSubmitMessage('Sorry, there was an error sending your message. Please try again.');
     } finally {
