@@ -39,6 +39,7 @@ const UserSchema: Schema<IUser> = new Schema(
     },
     group: {
       type: String,
+      enum: ['user', 'admin'],
       default: 'user',
     },
     isVerified: {

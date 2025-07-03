@@ -1,4 +1,4 @@
-import { createAuthOptions, createEmailSender, connectDB as connectAuthDB } from '@repo/auth';
+import { createAuthOptions, connectDB as connectAuthDB, sendEmail } from '@repo/auth';
 
 const MONGODB_URI = process.env.MONGODB_URI;
 const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET;
@@ -21,7 +21,15 @@ if (!RESEND_API_KEY) {
 export const authOptions = createAuthOptions(MONGODB_URI, NEXTAUTH_SECRET);
 
 // Export configured email sender
-export const { sendEmail } = createEmailSender(RESEND_API_KEY, EMAIL_FROM);
+export async function sendVerificationRequest(params: { identifier: any; url: any; }) {
+  const { identifier: email, url } = params;
+  await sendEmail({
+    to: email,
+    from: process.env.EMAIL_FROM!,
+    subject: 'Verify your email address',
+    html: `<p>Click <a href="${url}">here</a> to verify your email address.</p>`
+  });
+}
 
 // Export configured database connector
 export const connectDB = () => connectAuthDB(MONGODB_URI);

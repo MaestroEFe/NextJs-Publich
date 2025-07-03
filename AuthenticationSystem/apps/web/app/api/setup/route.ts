@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server';
 import mongoose from 'mongoose';
-import User from '@/models/User';
-import connectDB from '@/lib/connectDB';
-import { getSeedData } from '@/lib/seed';
+import { connectDB, User } from '@repo/auth';
 
 export async function POST() {
   if (process.env.NODE_ENV !== 'development') {
@@ -10,23 +8,28 @@ export async function POST() {
   }
 
   try {
-    await connectDB();
+    await connectDB(process.env.MONGODB_URI!);
 
-    // Clear existing data
-    await User.deleteMany({});
-    console.log('Cleared existing user data.');
+    const adminEmail = 'admin@example.com';
+    const existingAdmin = await User.findOne({ email: adminEmail });
 
-    // Get seed data
-    const seedData = await getSeedData();
-
-    // Insert new data
-    await User.insertMany(seedData.users);
-    console.log('Seeded new user data.');
-
-    return NextResponse.json({ message: 'Database setup and seeded successfully!' });
+    if (!existingAdmin) {
+      await User.create({
+        name: 'Admin User',
+        email: adminEmail,
+        password: 'password123', // Remember to change this
+        role: 'admin',
+        isVerified: true,
+      });
+      console.log('Admin user created.');
+      return new NextResponse('Admin user created successfully.', { status: 200 });
+    } else {
+      console.log('Admin user already exists.');
+      return new NextResponse('Admin user already exists.', { status: 200 });
+    }
   } catch (error) {
-    console.error('Error during database setup:', error);
-    return NextResponse.json({ message: 'Something went wrong during database setup.' }, { status: 500 });
+    console.error('Error in setup route:', error);
+    return new NextResponse('Internal server error', { status: 500 });
   } finally {
     // Disconnect after a short delay to ensure all operations are complete
     setTimeout(() => {

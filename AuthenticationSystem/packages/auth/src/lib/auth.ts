@@ -53,13 +53,13 @@ export const createAuthOptions = (
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        token.group = user.group;
+        token.group = (user as any).group; // Cast to access group property
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
-        session.user.id = token.id as string;
+        session.user.id = token.id as string; // Cast to assign to session
         session.user.group = token.group as string;
       }
       return session;

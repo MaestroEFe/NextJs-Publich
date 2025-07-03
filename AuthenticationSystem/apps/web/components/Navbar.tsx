@@ -26,7 +26,7 @@ const Navbar = () => {
               <Link href="/profile" className="text-gray-300 hover:text-white">
                 Profile
               </Link>
-              {session.user?.role === "admin" && (
+              {session.user?.group === "admin" && (
                 <Link href="/admin/dashboard" className="text-gray-300 hover:text-white">
                   Admin
                 </Link>
@@ -81,7 +81,7 @@ const Navbar = () => {
               <Link href="/profile" className="block text-gray-300 hover:text-white py-2">
                 Profile
               </Link>
-              {session.user?.role === "admin" && (
+              {session.user?.group === "admin" && (
                 <Link href="/admin/dashboard" className="block text-gray-300 hover:text-white py-2">
                   Admin
                 </Link>

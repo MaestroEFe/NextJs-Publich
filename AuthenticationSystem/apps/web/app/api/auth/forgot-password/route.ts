@@ -1,10 +1,9 @@
 import { NextResponse } from 'next/server';
-import { connectDB, sendEmail } from '@/lib/auth';
-import { User } from '@repo/auth';
+import { connectDB, sendEmail, User } from '@repo/auth';
 import crypto from 'crypto';
 
 export async function POST(req: Request) {
-  await connectDB();
+  await connectDB(process.env.MONGODB_URI!);
 
   try {
     const { email } = await req.json();

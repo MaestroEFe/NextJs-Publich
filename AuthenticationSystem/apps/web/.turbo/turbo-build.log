@@ -1,0 +1,76 @@
+
+> nextjs-auth-system@0.1.0 build /home/efe/Documents/NextJs/NextJs-Public/AuthenticationSystem/apps/web
+> next build
+
+  [1m[38;2;173;127;168m▲ Next.js 14.2.30[39m[22m
+  - Environments: .env.local
+
+ [37m[1m [22m[39m Creating an optimized production build ...
+ [32m[1m✓[22m[39m Compiled successfully
+[?25l [37m[1m [22m[39m Linting and checking validity of types  [36m.[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m..[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m...[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m.[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m..[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m...[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m.[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m..[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m...[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m.[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m..[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m...[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m.[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m..[39m ⨯ ESLint: Error while loading rule '@next/next/no-html-link-for-pages': The "path" argument must be of type string. Received undefined Occurred while linting /home/efe/Documents/NextJs/NextJs-Public/AuthenticationSystem/apps/web/app/(auth)/forgot-password/page.tsx
+[2K[1G[?25h [37m[1m [22m[39m Linting and checking validity of types     [32m[1m✓[22m[39m Linting and checking validity of types 
+[?25l [37m[1m [22m[39m Collecting page data  [36m.[39m[2K[1G [37m[1m [22m[39m Collecting page data  [36m..[39m[2K[1G [37m[1m [22m[39m Collecting page data  [36m...[39m[2K[1G [37m[1m [22m[39m Collecting page data  [36m.[39m[2K[1G [37m[1m [22m[39m Collecting page data  [36m..[39m[2K[1G[?25h [37m[1m [22m[39m Collecting page data     [32m[1m✓[22m[39m Collecting page data 
+[?25l [37m[1m [22m[39m Generating static pages (0/42)  [36m[    ][39m[2K[1G [37m[1m [22m[39m Generating static pages (10/42)  [36m[=   ][39m[2K[1G [37m[1m [22m[39m Generating static pages (35/42)  [36m[==  ][39m[2K[1G [37m[1m [22m[39m Generating static pages (41/42)  [36m[=== ][39m[2K[1G [37m[1m [22m[39m Generating static pages (41/42)  [36m[ ===][39mMongoDB connected successfully.
+[2K[1G [37m[1m [22m[39m Generating static pages (41/42)  [36m[  ==][39m[2K[1G [37m[1m [22m[39m Generating static pages (41/42)  [36m[   =][39mMongoDB connected successfully.
+[2K[1G [37m[1m [22m[39m Generating static pages (41/42)  [36m[    ][39m[2K[1G[?25h [32m[1m✓[22m[39m Generating static pages (42/42)
+MongoDB connected successfully.
+[?25l [37m[1m [22m[39m Finalizing page optimization  [36m.[39m[?25l [37m[1m [22m[39m Collecting build traces  [36m.[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m..[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m..[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m...[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m...[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m.[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m.[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m..[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m..[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m...[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m...[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m.[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m.[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m..[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m..[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m...[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m...[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m.[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m.[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m..[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m..[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m...[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m...[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m.[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m.[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m..[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m..[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m...[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m...[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m.[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m.[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m..[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m..[39m[2K[1G[?25h [37m[1m [22m[39m Collecting build traces     [32m[1m✓[22m[39m Collecting build traces 
+[2K[1G[?25h [37m[1m [22m[39m Finalizing page optimization     [32m[1m✓[22m[39m Finalizing page optimization 
+
+[4mRoute (app)[24m                              [4mSize[24m     [4mFirst Load JS[24m
+┌ ○ /                                    42.7 kB         [37m[1m139 kB[22m[39m
+├ ○ /_not-found                          873 B          [37m[1m88.1 kB[22m[39m
+├ ○ /about                               1.83 kB        [37m[1m97.8 kB[22m[39m
+├ ƒ /admin                               763 B            [37m[1m88 kB[22m[39m
+├ ƒ /admin/cms/categories                1.52 kB        [37m[1m88.8 kB[22m[39m
+├ ƒ /admin/cms/posts                     1.57 kB        [37m[1m88.8 kB[22m[39m
+├ ƒ /admin/cms/tags                      1.16 kB        [37m[1m88.4 kB[22m[39m
+├ ƒ /admin/contacts                      146 B          [37m[1m87.4 kB[22m[39m
+├ ƒ /admin/dashboard                     647 B           [37m[1m106 kB[22m[39m
+├ ƒ /admin/inquiries                     146 B          [37m[1m87.4 kB[22m[39m
+├ ƒ /admin/manage-admins                 1.26 kB        [37m[1m98.2 kB[22m[39m
+├ ƒ /admin/manage-users                  1.37 kB        [37m[1m98.4 kB[22m[39m
+├ ƒ /api/admin/admins                    0 B                [37m[1m0 B[22m[39m
+├ ƒ /api/admin/make-admin                0 B                [37m[1m0 B[22m[39m
+├ ƒ /api/admin/users                     0 B                [37m[1m0 B[22m[39m
+├ ƒ /api/admin/users/[id]                0 B                [37m[1m0 B[22m[39m
+├ ƒ /api/auth/[...nextauth]              0 B                [37m[1m0 B[22m[39m
+├ ƒ /api/auth/forgot-password            0 B                [37m[1m0 B[22m[39m
+├ ƒ /api/auth/register                   0 B                [37m[1m0 B[22m[39m
+├ ƒ /api/auth/reset-password             0 B                [37m[1m0 B[22m[39m
+├ ƒ /api/auth/reset-password/[token]     0 B                [37m[1m0 B[22m[39m
+├ ƒ /api/auth/verify-email               0 B                [37m[1m0 B[22m[39m
+├ ƒ /api/cms/categories                  0 B                [37m[1m0 B[22m[39m
+├ ƒ /api/cms/posts                       0 B                [37m[1m0 B[22m[39m
+├ ƒ /api/cms/seed-demo                   0 B                [37m[1m0 B[22m[39m
+├ ƒ /api/cms/tags                        0 B                [37m[1m0 B[22m[39m
+├ ƒ /api/contact                         0 B                [37m[1m0 B[22m[39m
+├ ƒ /api/crm/contacts                    0 B                [37m[1m0 B[22m[39m
+├ ƒ /api/inquiries                       0 B                [37m[1m0 B[22m[39m
+├ ƒ /api/seed                            0 B                [37m[1m0 B[22m[39m
+├ ƒ /api/setup                           0 B                [37m[1m0 B[22m[39m
+├ ƒ /api/user                            0 B                [37m[1m0 B[22m[39m
+├ ○ /blog                                2.23 kB         [37m[1m101 kB[22m[39m
+├ ○ /contact                             2.92 kB         [37m[1m125 kB[22m[39m
+├ ○ /dashboard                           1.27 kB         [37m[1m107 kB[22m[39m
+├ ○ /forgot-password                     1.14 kB         [37m[1m121 kB[22m[39m
+├ ○ /get-started                         3.21 kB         [37m[1m126 kB[22m[39m
+├ ○ /login                               1.33 kB         [37m[1m121 kB[22m[39m
+├ ○ /profile                             1.75 kB         [37m[1m113 kB[22m[39m
+├ ○ /register                            1.77 kB         [37m[1m488 kB[22m[39m
+├ ○ /reset-password                      1.46 kB         [37m[1m112 kB[22m[39m
+├ ƒ /reset-password/[token]              1.67 kB         [37m[1m497 kB[22m[39m
+├ ○ /services                            2.71 kB         [37m[1m101 kB[22m[39m
+└ ○ /verify-email                        1.05 kB        [37m[1m97.1 kB[22m[39m
++ First Load JS shared by all            [37m[1m87.3 kB[22m[39m
+  ├ chunks/736cd029-d745cfe94b89fe1f.js  53.6 kB
+  ├ chunks/922-6aa9c1a56b45d0f7.js       31.6 kB
+  └ other shared chunks (total)          2.07 kB
+
+
+ƒ Middleware                             [37m[1m47.8 kB[22m[39m
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+[?25h

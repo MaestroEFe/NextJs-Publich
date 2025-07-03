@@ -1,13 +1,12 @@
 import { NextResponse } from 'next/server';
-import { connectToDatabase } from '@/lib/db';
-import User from '@/models/User';
-import Post from '@/models/Post';
-import Contact from '@/models/Contact';
+import { connectDB, User } from '@repo/auth';
+import { Post } from '@repo/cms';
+import { Contact } from '@repo/crm';
 import bcrypt from 'bcryptjs';
 
 export async function GET() {
   try {
-    await connectToDatabase();
+    await connectDB(process.env.MONGODB_URI!);
 
     // Check if admin already exists
     const adminEmail = 'admin@example.com';

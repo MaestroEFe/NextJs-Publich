@@ -1,12 +1,10 @@
 import { NextResponse } from 'next/server';
-import connectDB from '@/lib/connectDB';
-import User from '@/models/User';
-import PasswordResetToken from '@/models/PasswordResetToken';
+import { connectDB, User, PasswordResetToken } from '@repo/auth';
 import bcrypt from 'bcryptjs';
 
 export async function POST(req: Request, { params }: { params: { token: string } }) {
   try {
-    await connectDB();
+    await connectDB(process.env.MONGODB_URI!);
     const { password } = await req.json();
     const { token } = params;
 

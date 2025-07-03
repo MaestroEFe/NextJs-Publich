@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { registerSchema } from '@/schemas/userSchema';
+import { registerSchema } from '@repo/auth';
 import AuthForm from '@/components/AuthForm';
 
 const RegisterPage = () => {

@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
-import connectDB from '@/lib/connectDB';
-import User from '@/models/User';
+import { connectDB, User } from '@repo/auth';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 
@@ -26,7 +25,7 @@ export async function POST(request: Request) {
       );
     }
 
-    await connectDB();
+    await connectDB(process.env.MONGODB_URI!);
     
     // Update the user's group to 'admin'
     const updatedUser = await User.findOneAndUpdate(

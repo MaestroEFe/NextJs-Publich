@@ -1,16 +1,18 @@
 import { NextResponse } from 'next/server';
-import { auth, connectDB } from '@/lib/auth'; // Using configured auth from the web app
-import { Contact } from '@repo/crm'; // Using the new CRM package
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
+import { Contact } from '@repo/crm';
+import { connectDB } from '@repo/auth';
 
 // GET handler to fetch the user's contact info
 export async function GET() {
-  const session = await auth();
+  const session = await getServerSession(authOptions);
 
   if (!session?.user?.id) {
     return NextResponse.json({ message: 'Not authenticated' }, { status: 401 });
   }
 
-  await connectDB();
+  await connectDB(process.env.MONGODB_URI!);
 
   try {
     const contact = await Contact.findOne({ user: session.user.id });
@@ -30,13 +32,13 @@ export async function GET() {
 
 // POST handler to create or update the user's contact info (upsert)
 export async function POST(req: Request) {
-  const session = await auth();
+  const session = await getServerSession(authOptions);
 
   if (!session?.user?.id) {
     return NextResponse.json({ message: 'Not authenticated' }, { status: 401 });
   }
 
-  await connectDB();
+  await connectDB(process.env.MONGODB_URI!);
 
   try {
     const body = await req.json();

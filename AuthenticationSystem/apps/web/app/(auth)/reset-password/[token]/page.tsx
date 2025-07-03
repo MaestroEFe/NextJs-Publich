@@ -5,7 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { resetPasswordSchema } from '@/schemas/userSchema';
+import { resetPasswordSchema } from '@repo/auth';
 import Link from 'next/link';
 
 type ResetPasswordFormValues = z.infer<typeof resetPasswordSchema>;

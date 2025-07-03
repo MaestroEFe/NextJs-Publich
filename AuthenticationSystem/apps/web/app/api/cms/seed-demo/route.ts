@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
-import { authOptions, connectDB } from '@/lib/auth';
+import { connectDB, User } from '@repo/auth';
+import { authOptions } from '@/lib/auth';
 import { hasAdminAccess } from '@repo/auth';
 import { Category, Post, Tag } from '@repo/cms';
 
@@ -11,7 +12,7 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    await connectDB();
+    await connectDB(process.env.MONGODB_URI!);
 
     // Clear existing data
     await Promise.all([
@@ -37,10 +38,8 @@ export async function POST(req: NextRequest) {
     const prodTag2 = await Tag.create({ name: 'Featured', postType: 'product' });
 
     // --- Create Posts ---
-    const post1Title = 'The Rise of AI in Web Development';
     await Post.create({
-      title: post1Title,
-      slug: post1Title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, ''),
+      title: 'The Rise of AI in Web Development',
       content: 'AI is revolutionizing how we build and interact with websites...',
       postType: 'blog',
       author: session.user.id,
@@ -50,10 +49,8 @@ export async function POST(req: NextRequest) {
       publishedAt: new Date(),
     });
 
-    const post2Title = 'Getting Started with Next.js 14';
     await Post.create({
-      title: post2Title,
-      slug: post2Title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, ''),
+      title: 'Getting Started with Next.js 14',
       content: 'A comprehensive guide to setting up your first Next.js project...',
       postType: 'blog',
       author: session.user.id,
@@ -63,10 +60,8 @@ export async function POST(req: NextRequest) {
       publishedAt: new Date(),
     });
 
-    const post3Title = 'SuperGadget Pro X';
     await Post.create({
-      title: post3Title,
-      slug: post3Title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, ''),
+      title: 'SuperGadget Pro X',
       content: 'The latest and greatest gadget you never knew you needed. Now 20% off!',
       postType: 'product',
       author: session.user.id,
