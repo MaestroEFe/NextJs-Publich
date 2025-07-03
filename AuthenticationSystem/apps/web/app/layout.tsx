@@ -1,23 +1,29 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import AuthProvider from "@/contexts/AuthProvider";
-import Navbar from "@/components/Navbar";
+import { Inter, Poppins } from 'next/font/google';
+import AuthProvider from '@/contexts/AuthProvider';
+import Navbar from '@/components/Navbar';
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+});
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-poppins',
+});
 
 export const metadata: Metadata = {
-  title: "Next.js Auth System",
-  description: "A complete authentication system with Next.js and NextAuth.js",
+  title: 'OrisGate - Your Gateway to Study Abroad',
+  description: 'OrisGate helps students study abroad and provides seamless visa processing services. Your journey to international education starts here.',
+  keywords: 'study abroad, visa processing, international education, student travel, OrisGate',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
       <body className={inter.className}>
         <AuthProvider>
           <Navbar />
@@ -27,3 +33,4 @@ export default function RootLayout({
     </html>
   );
 }
+
