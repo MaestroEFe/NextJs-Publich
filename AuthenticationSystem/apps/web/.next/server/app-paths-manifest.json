@@ -1,9 +1,7 @@
 {
+  "/page": "app/page.js",
   "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
-  "/api/cms/tags/route": "app/api/cms/tags/route.js",
-  "/api/cms/seed-demo/route": "app/api/cms/seed-demo/route.js",
-  "/admin/cms/posts/page": "app/admin/cms/posts/page.js",
   "/admin/page": "app/admin/page.js",
-  "/admin/cms/categories/page": "app/admin/cms/categories/page.js",
-  "/admin/cms/tags/page": "app/admin/cms/tags/page.js"
+  "/admin/cms/posts/page": "app/admin/cms/posts/page.js",
+  "/admin/cms/categories/page": "app/admin/cms/categories/page.js"
 }
