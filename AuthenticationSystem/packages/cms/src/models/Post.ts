@@ -27,9 +27,9 @@ const PostSchema: Schema<IPost> = new Schema(
     },
     slug: {
       type: String,
-      required: true,
       trim: true,
       unique: true,
+      index: true, // It's good practice to index slugs for faster lookups
     },
     content: {
       type: String,
