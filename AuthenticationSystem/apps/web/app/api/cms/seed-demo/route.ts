@@ -1,151 +1,87 @@
-import { NextResponse, NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions, connectDB } from '@/lib/auth';
 import { hasAdminAccess } from '@repo/auth';
-import { Category, Tag, Post } from '@repo/cms';
-
-// Demo data for each post type
-const demoData = {
-  blog: {
-    categories: [
-      { name: 'Announcements', description: 'Official updates', postType: 'blog' },
-      { name: 'Tech', description: 'Tech news', postType: 'blog' },
-    ],
-    tags: [
-      { name: 'launch', postType: 'blog' },
-      { name: 'update', postType: 'blog' },
-    ],
-    posts: [
-      {
-        title: 'Welcome to Our Blog!',
-        content: 'This is our very first announcement.',
-        postType: 'blog',
-        categoryName: 'Announcements',
-        tagNames: ['launch'],
-      },
-    ],
-  },
-  product: {
-    categories: [
-      { name: 'Electronics', description: 'Gadgets and devices', postType: 'product' },
-      { name: 'Apparel', description: 'Clothing and accessories', postType: 'product' },
-    ],
-    tags: [
-      { name: 'sale', postType: 'product' },
-      { name: 'new', postType: 'product' },
-    ],
-    posts: [
-      {
-        title: 'Introducing SmartWatch X',
-        content: 'Meet our latest wearable device.',
-        postType: 'product',
-        categoryName: 'Electronics',
-        tagNames: ['new', 'sale'],
-      },
-    ],
-  },
-  service: {
-    categories: [
-      { name: 'Consulting', description: 'Expert advice', postType: 'service' },
-      { name: 'Support', description: 'Customer support', postType: 'service' },
-    ],
-    tags: [
-      { name: 'premium', postType: 'service' },
-    ],
-    posts: [
-      {
-        title: 'Premium Consulting Launched',
-        content: 'Our new consulting service is live.',
-        postType: 'service',
-        categoryName: 'Consulting',
-        tagNames: ['premium'],
-      },
-    ],
-  },
-  page: {
-    categories: [
-      { name: 'About', description: 'About us page', postType: 'page' },
-      { name: 'Contact', description: 'Contact info', postType: 'page' },
-    ],
-    tags: [
-      { name: 'info', postType: 'page' },
-    ],
-    posts: [
-      {
-        title: 'About Our Company',
-        content: 'Learn more about us.',
-        postType: 'page',
-        categoryName: 'About',
-        tagNames: ['info'],
-      },
-    ],
-  },
-};
+import { Category, Post, Tag } from '@repo/cms';
 
 export async function POST(req: NextRequest) {
   const session = await getServerSession(authOptions);
   if (!session || !session.user || !hasAdminAccess(session.user.group)) {
     return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
   }
+
   try {
     await connectDB();
 
-    const summary: Record<string, any> = {};
-    for (const [postType, { categories, tags, posts }] of Object.entries(demoData)) {
-      // Seed categories
-      const catResults = [];
-      for (const cat of categories) {
-        let category = await Category.findOne({ name: cat.name, postType });
-        if (!category) {
-          category = await Category.create(cat);
-          catResults.push(category.name);
-        }
-      }
-      // Seed tags
-      const tagResults = [];
-      for (const tag of tags) {
-        let tagDoc = await Tag.findOne({ name: tag.name, postType });
-        if (!tagDoc) {
-          tagDoc = await Tag.create(tag);
-          tagResults.push(tagDoc.name);
-        }
-      }
-      // Seed posts
-      const postResults = [];
-      for (const p of posts) {
-        let exists = await Post.findOne({ title: p.title, postType });
-        if (!exists) {
-          const category = await Category.findOne({ name: p.categoryName, postType });
-          const tagDocs = await Tag.find({ name: { $in: p.tagNames }, postType });
-          // Generate slug from title (mimic the Post model's slug generation)
-          const slug = p.title
-            .toLowerCase()
-            .replace(/\s+/g, '-')
-            .replace(/[^\w-]+/g, '');
-            
-          const post = await Post.create({
-            title: p.title,
-            slug,
-            content: p.content,
-            postType,
-            category: category ? category._id : undefined,
-            tags: tagDocs.map(t => t._id),
-          });
-          postResults.push(post.title);
-        }
-      }
-      summary[postType] = {
-        categories: catResults,
-        tags: tagResults,
-        posts: postResults,
-      };
-    }
-    return NextResponse.json({ message: 'Demo content seeded', summary });
-  } catch (err: any) {
-    return NextResponse.json({ message: 'Error seeding demo content', error: err.message }, { status: 500 });
-  }
-}
+    // Clear existing data
+    await Promise.all([
+      Post.deleteMany({}),
+      Category.deleteMany({}),
+      Tag.deleteMany({}),
+    ]);
 
-export async function GET() {
-  return NextResponse.json({ message: 'Use POST to seed demo content.' }, { status: 405 });
+    // --- Create Categories ---
+    const blogCat1 = await Category.create({ name: 'Tech News', postType: 'blog' });
+    const blogCat2 = await Category.create({ name: 'Tutorials', postType: 'blog' });
+
+    const prodCat1 = await Category.create({ name: 'Electronics', postType: 'product' });
+    const prodCat2 = await Category.create({ name: 'Books', postType: 'product' });
+    await Category.create({ name: 'Laptops', postType: 'product', parent: prodCat1._id });
+    await Category.create({ name: 'Smartphones', postType: 'product', parent: prodCat1._id });
+
+    // --- Create Tags ---
+    const blogTag1 = await Tag.create({ name: 'AI', postType: 'blog' });
+    const blogTag2 = await Tag.create({ name: 'Next.js', postType: 'blog' });
+
+    const prodTag1 = await Tag.create({ name: 'On Sale', postType: 'product' });
+    const prodTag2 = await Tag.create({ name: 'Featured', postType: 'product' });
+
+    // --- Create Posts ---
+    const post1Title = 'The Rise of AI in Web Development';
+    await Post.create({
+      title: post1Title,
+      slug: post1Title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, ''),
+      content: 'AI is revolutionizing how we build and interact with websites...',
+      postType: 'blog',
+      author: session.user.id,
+      categories: [blogCat1._id],
+      tags: [blogTag1._id, blogTag2._id],
+      status: 'published',
+      publishedAt: new Date(),
+    });
+
+    const post2Title = 'Getting Started with Next.js 14';
+    await Post.create({
+      title: post2Title,
+      slug: post2Title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, ''),
+      content: 'A comprehensive guide to setting up your first Next.js project...',
+      postType: 'blog',
+      author: session.user.id,
+      categories: [blogCat2._id],
+      tags: [blogTag2._id],
+      status: 'published',
+      publishedAt: new Date(),
+    });
+
+    const post3Title = 'SuperGadget Pro X';
+    await Post.create({
+      title: post3Title,
+      slug: post3Title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, ''),
+      content: 'The latest and greatest gadget you never knew you needed. Now 20% off!',
+      postType: 'product',
+      author: session.user.id,
+      categories: [prodCat1._id],
+      tags: [prodTag1._id, prodTag2._id],
+      status: 'published',
+      publishedAt: new Date(),
+      meta: { price: 999.99, sku: 'SG-PRO-X' },
+    });
+
+    return NextResponse.json({ message: 'Demo content seeded successfully!' });
+
+  } catch (error) {
+    console.error('Error seeding demo content:', error);
+    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+    return NextResponse.json({ message: 'Internal Server Error', error: errorMessage }, { status: 500 });
+  }
 }
