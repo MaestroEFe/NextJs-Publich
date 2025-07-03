@@ -2,7 +2,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Inter, Poppins } from 'next/font/google';
 import AuthProvider from '@/contexts/AuthProvider';
-import Navbar from '@/components/Navbar';
+
 
 const inter = Inter({
   subsets: ['latin'],
@@ -26,7 +26,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
       <body className={inter.className}>
         <AuthProvider>
-          <Navbar />
           {children}
         </AuthProvider>
       </body>
