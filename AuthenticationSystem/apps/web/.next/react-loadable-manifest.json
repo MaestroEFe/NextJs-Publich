@@ -1,1 +1,14 @@
-{}
+{
+  "../../node_modules/.pnpm/@react-email+render@1.1.2_react-dom@18.2.0_react@18.2.0/node_modules/@react-email/render/dist/browser/index.mjs -> react-dom/server": {
+    "id": 2366,
+    "files": [
+      "static/chunks/366.f5c2c6435f9a27bb.js"
+    ]
+  },
+  "../../node_modules/.pnpm/resend@4.6.0_react-dom@18.2.0_react@18.2.0/node_modules/resend/dist/index.mjs -> @react-email/render": {
+    "id": 2414,
+    "files": [
+      "static/chunks/414.c748e2d4d35cb148.js"
+    ]
+  }
+}
